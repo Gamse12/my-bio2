@@ -8,7 +8,7 @@
     <link rel="icon" href="favicon.png" type="image/png"> 
     
     <style>
-        /* === 1. CSS Стили (Kurumi/Glitch Hybrid) === */
+        /* === 1. CSS Стили (Kurumi/Glitch Hybrid) - Взято из первого примера === */
         :root {
             --bg-dark: #020008; /* Очень темно */
             --text-color: #e0e0e0;
@@ -67,7 +67,7 @@
         .info-box p { margin: 8px 0; font-size: 1.15em; }
         .info-box strong { color: var(--secondary-accent); } 
         
-        /* КАСТОМНЫЙ АУДИО-ПЛЕЕР (Стилизован под темную панель) */
+        /* КАСТОМНЫЙ АУДИО-ПЛЕЕР (Стилизован под темную панель) - Взято из первого примера */
         .music-container-custom {
             margin-top: 30px;
             padding: 20px; 
@@ -126,7 +126,6 @@
             text-align: center;
         }
 
-        /* КОНТРОЛЫ ГРОМКОСТИ */
         .volume-controls {
             display: flex;
             align-items: center;
@@ -164,7 +163,7 @@
 </head>
 <body>
 
-    <!-- ВИДЕОФОН (Требует наличия bg_edit.mp4) -->
+    <!-- ВИДЕОФОН -->
     <video autoplay loop muted playsinline id="background-video">
         <source src="bg_edit.mp4" type="video/mp4">
         Ваш браузер не поддерживает теги видео.
@@ -172,7 +171,6 @@
 
     <div class="container">
         
-        <!-- Аватар (Требует наличия dima_avatar.jpg) -->
         <img src="dima_avatar.jpg" alt="Profile Avatar" class="profile-avatar"> 
         
         <h1>Gamse_Over</h1>
@@ -187,9 +185,9 @@
         <!-- КАСТОМНЫЙ АУДИО-ПЛЕЕР -->
         <div class="music-container-custom">
             
-            <!-- *** ДОБАВЛЕН СКРЫТЫЙ ТЕГ AUDIO ДЛЯ РАБОТЫ СКРИПТА *** -->
-            <!-- ВАЖНО: Замените 'your_track.mp3' на реальный путь к вашему аудиофайлу -->
-            <audio id="customAudioPlayer" src="your_track.mp3" preload="auto"></audio>
+            <!-- *** ВОССТАНОВЛЕННЫЙ ТЕГ AUDIO (ID из первого примера) *** -->
+            <!-- !!! ЗАМЕНИТЕ 'your_track.mp3' НА ИМЯ ВАШЕГО МУЗЫКАЛЬНОГО ФАЙЛА !!! -->
+            <audio id="customAudioPlayer" src="my_bg_music.mp3" preload="auto"></audio> 
             
             <div class="player-controls">
                 
@@ -203,7 +201,7 @@
                     <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
                 </div>
                 
-                <!-- КОНТРОЛЫ ГРОМКОСТИ -->
+                <!-- КОНТРОЛЫ ГРОМКОСТИ (Возвращены, т.к. были в первом примере) -->
                 <div class="volume-controls">
                     <button id="volumeIcon" class="volume-btn">🔊</button>
                     <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.7" class="volume-slider">
@@ -219,7 +217,7 @@
         </div>
     </div>
 
-    <!-- === JavaScript для возраста И НОВОГО ПЛЕЕРА === -->
+    <!-- === JavaScript для возраста И НОВОГО ПЛЕЕРА (Логика из второго примера) === -->
     <script>
         // 1. РАСЧЕТ ВОЗРАСТА (2006)
         const birthDate = new Date("2006-12-31T00:00:00"); 
@@ -233,8 +231,8 @@
         document.getElementById('age').textContent = age;
 
 
-        // 2. КОНТРОЛЛЕР АУДИО (Custom Player Logic)
-        const audio = document.getElementById('customAudioPlayer'); // Теперь тег существует!
+        // 2. КОНТРОЛЛЕР АУДИО (Рабочая логика из второго файла)
+        const audio = document.getElementById('customAudioPlayer');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progressFill = document.getElementById('progressFill');
         const progressBarContainer = document.getElementById('progressBarContainer');
@@ -288,7 +286,7 @@
             audio.currentTime = 0;
         });
         
-        // --- УПРАВЛЕНИЕ ГРОМКОСТЬЮ ---
+        // --- УПРАВЛЕНИЕ ГРОМКОСТЬЮ (Логика из первого примера) ---
         volumeSlider.addEventListener('input', () => {
             audio.volume = volumeSlider.value;
             if (audio.volume === 0) { volumeIcon.textContent = '🔇'; } 
@@ -299,11 +297,10 @@
         // --- АКТИВАЦИЯ ЗВУКА ПРИ ПЕРВОМ КЛИКЕ (НА КНОПКЕ PLAY) ---
         playPauseBtn.addEventListener('click', () => {
             togglePlay();
-            // Мутед может быть снят автоматически, но явное действие не повредит
             audio.muted = false; 
         });
 
-        // Инициализация иконки громкости при загрузке (по умолчанию 0.7)
+        // Инициализация иконки громкости
         if (audio.volume > 0.5) { volumeIcon.textContent = '🔊'; } 
         else if (audio.volume > 0) { volumeIcon.textContent = '🔉'; } 
         else { volumeIcon.textContent = '🔇'; }
