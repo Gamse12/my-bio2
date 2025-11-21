@@ -164,7 +164,7 @@
 </head>
 <body>
 
-    <!-- ВИДЕОФОН -->
+    <!-- ВИДЕОФОН (Требует наличия bg_edit.mp4) -->
     <video autoplay loop muted playsinline id="background-video">
         <source src="bg_edit.mp4" type="video/mp4">
         Ваш браузер не поддерживает теги видео.
@@ -172,6 +172,7 @@
 
     <div class="container">
         
+        <!-- Аватар (Требует наличия dima_avatar.jpg) -->
         <img src="dima_avatar.jpg" alt="Profile Avatar" class="profile-avatar"> 
         
         <h1>Gamse_Over</h1>
@@ -185,6 +186,10 @@
 
         <!-- КАСТОМНЫЙ АУДИО-ПЛЕЕР -->
         <div class="music-container-custom">
+            
+            <!-- *** ДОБАВЛЕН СКРЫТЫЙ ТЕГ AUDIO ДЛЯ РАБОТЫ СКРИПТА *** -->
+            <!-- ВАЖНО: Замените 'your_track.mp3' на реальный путь к вашему аудиофайлу -->
+            <audio id="customAudioPlayer" src="your_track.mp3" preload="auto"></audio>
             
             <div class="player-controls">
                 
@@ -229,7 +234,7 @@
 
 
         // 2. КОНТРОЛЛЕР АУДИО (Custom Player Logic)
-        const audio = document.getElementById('customAudioPlayer');
+        const audio = document.getElementById('customAudioPlayer'); // Теперь тег существует!
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progressFill = document.getElementById('progressFill');
         const progressBarContainer = document.getElementById('progressBarContainer');
@@ -294,10 +299,11 @@
         // --- АКТИВАЦИЯ ЗВУКА ПРИ ПЕРВОМ КЛИКЕ (НА КНОПКЕ PLAY) ---
         playPauseBtn.addEventListener('click', () => {
             togglePlay();
+            // Мутед может быть снят автоматически, но явное действие не повредит
             audio.muted = false; 
         });
 
-        // Иконка громкости
+        // Инициализация иконки громкости при загрузке (по умолчанию 0.7)
         if (audio.volume > 0.5) { volumeIcon.textContent = '🔊'; } 
         else if (audio.volume > 0) { volumeIcon.textContent = '🔉'; } 
         else { volumeIcon.textContent = '🔇'; }
